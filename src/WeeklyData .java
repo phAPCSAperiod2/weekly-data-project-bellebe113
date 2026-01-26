@@ -11,9 +11,7 @@ public class WeeklyData {
     // TODO: Declare a private array to store the week’s data
     //       Choose an appropriate type (double[] or int[])
     //       Create other instance variables as necessary
-    
-
-
+    private int[] steps;
     // -------------------------------------------------------------
     // Constructor
     // -------------------------------------------------------------
@@ -23,11 +21,19 @@ public class WeeklyData {
      *
      * @param input an array representing 7 days of data
      */
-    public WeeklyData(double[] input) {
+    public WeeklyData(int[] input) {
         // TODO: (Optional) Check if input is null and handle appropriately
         // TODO: Create a new array with the same length as input
         // TODO: Copy each value from input into the internal data array
         // NOTE: Do NOT do this.data = input; (that would create aliasing)
+        int[] temp = new int [input.length];
+        for(int i = 0; i < input.length; i++){
+            temp[i] = input[i]; 
+        }
+        input = temp; 
+        for(int i = 0; i < input.length; i++){
+            System.out.print(input[i] + " "); 
+        }
     }
 
 
