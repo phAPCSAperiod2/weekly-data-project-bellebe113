@@ -4,14 +4,15 @@
  * or any other measurable daily value.
  */
 public class WeeklyData {
+//I want to tell the user the total miles they have walked per day based on the steps 
+//If they have reached their weekly step goals 
+//If not I want to tell them how much they still need to reach said goal 
 
     // -------------------------------------------------------------
     // Instance Variables
     // -------------------------------------------------------------
-    // TODO: Declare a private array to store the week’s data
-    //       Choose an appropriate type (double[] or int[])
-    //       Create other instance variables as necessary
     private int[] steps;
+    private int weeklyGoal;
     // -------------------------------------------------------------
     // Constructor
     // -------------------------------------------------------------
@@ -21,19 +22,20 @@ public class WeeklyData {
      *
      * @param input an array representing 7 days of data
      */
-    public WeeklyData(int[] input) {
-        // TODO: (Optional) Check if input is null and handle appropriately
-        // TODO: Create a new array with the same length as input
-        // TODO: Copy each value from input into the internal data array
-        // NOTE: Do NOT do this.data = input; (that would create aliasing)
-        int[] temp = new int [input.length];
-        for(int i = 0; i < input.length; i++){
-            temp[i] = input[i]; 
+    public WeeklyData(int[] input, int goal ) {
+        if(input == null)
+        {
+            steps = new int[0];
         }
-        input = temp; 
-        for(int i = 0; i < input.length; i++){
-            System.out.print(input[i] + " "); 
+        else
+        {
+            steps = new int[input.length];
+            // Copy each value one by one 
+            for(int i = 0; i < input.length; i++){
+            steps[i] = input[i]; 
+            }
         }
+        weeklyGoal = goal;
     }
 
 
@@ -45,11 +47,13 @@ public class WeeklyData {
      *
      * @return the sum of all values in the data array
      */
-    public double getTotal() {
-        // TODO: Create a variable to store the running total
-        // TODO: Use a loop to add each value in the array to the total
-        // TODO: Return the total
-        return 0.0; // replace with your calculated total
+    public int getTotal() {
+        int total = 0;
+        for(int i = 0; i < steps.length; i++){
+            total += steps[i];
+        }
+        
+        return total;
     }
 
 
@@ -63,10 +67,11 @@ public class WeeklyData {
      *         or 0.0 if the array is empty
      */
     public double getAverage() {
-        // TODO: If the array length is 0, return 0.0
-        // TODO: Otherwise, divide the total by the number of elements
-        // Hint: You may call getTotal()
-        return 0.0; // replace with your calculated average
+        if(steps.length == 0)
+        {
+            return 0.0;
+        }
+        return (double) getTotal() / steps.length; 
     }
 
 
@@ -79,10 +84,15 @@ public class WeeklyData {
      * @return the maximum value
      */
     public double getMax() {
-        // TODO: Assume the first value is the current maximum
-        // TODO: Loop through the rest of the array and update max as needed
-        // TODO: Return the maximum value found
-        return 0.0; // replace with the maximum value
+        if (steps.length == 0) return 0;
+        int max = steps[0];
+        for (int i = 1; i < steps.length; i++) {
+            if (steps[i] > max) 
+            {
+            max = steps[i];
+            }
+        }
+        return max; 
     }
 
 
@@ -95,10 +105,16 @@ public class WeeklyData {
      * @return the minimum value
      */
     public double getMin() {
-        // TODO: Assume the first value is the current minimum
-        // TODO: Loop through the rest of the array and update min as needed
-        // TODO: Return the minimum value found
-        return 0.0; // replace with the minimum value
+        if (steps.length == 0) return 0;
+        int min = steps[0];
+        for (int i = 1; i < steps.length; i++) 
+        {
+            if (steps[i] < min)
+            {
+                min = steps[i];
+            }
+        }
+        return min; 
     }
 
 
@@ -117,10 +133,15 @@ public class WeeklyData {
      */
     @Override
     public String toString() {
-        // TODO: Create a StringBuilder
-        // TODO: Loop through the data array
-        // TODO: Append each value with a day label (Day 1, Day 2, etc.)
-        // TODO: Return the completed String
-        return ""; // replace with your formatted output
+        String output = "";
+
+    for (int i = 0; i < steps.length; i++) 
+    {
+        output += "Day " + (i + 1) + ": " + steps[i] + " steps\n";
+    }
+    output += "Total steps: " + getTotal() + "\n";
+    output += checkWeeklyGoal();
+
+    return output;
     }
 }
