@@ -87,11 +87,36 @@ public class App {
         //         --> "You were very hydrated this week!"
         //         --> etc.
         // -------------------------------------------------------------
-        if (week.getAverage() < 5000) {
-            System.out.println("Try to be more active next week!");
-        } else {
-            System.out.println("Great job staying active this week!");
+       // -------------------------------------------------------------
+// TODO 8: Give the user insights about their week
+// -------------------------------------------------------------
+    int avgSteps = week.getAverage();
+    int diff = avgSteps - goal;
+
+    if (avgSteps >= goal) {
+    System.out.println("Awesome job! You met your daily step goal.");
+    System.out.println("You exceeded your goal by an average of " + diff + " steps per day.");
+
+    System.out.println("Ways to improve even more:");
+    System.out.println("- Try increasing your daily goal by 500–1000 steps.");
+    System.out.println("- Add one longer walk or workout during the week.");
+    System.out.println("- Focus on consistency by matching your best day on slower days.");
+    } 
+    else {
+    System.out.println("You did not meet your daily step goal.");
+    System.out.println("You were short by an average of " + Math.abs(diff) + " steps per day.");
+
+    System.out.println("Days that need improvement:");
+    String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
+    for (int i = 0; i < weekData.length; i++) {
+        if (weekData[i] < goal) {
+            System.out.println("- " + days[i] + " (" + weekData[i] + " steps)");
         }
+    }
+
+    System.out.println("Try adding a short walk or some light exercise on those days!");
+    }
 
         input.close();
 
